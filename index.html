@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PULSE — Tech News Ticker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream: #fdf8f2;
+      --warm-white: #fffcf7;
+      --peach: #f4a97f;
+      --rose: #e8756a;
+      --blush: #f9ddd5;
+      --mint: #b8dfd0;
+      --sky: #c5dff8;
+      --lavender: #dcd3f5;
+      --gold: #e8c87a;
+      --charcoal: #2c2825;
+      --mid: #6b5f57;
+      --light: #a89990;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    /* ── TICKER BAR ── */
+    .ticker-wrap {
+      background: var(--charcoal);
+      color: var(--gold);
+      padding: 10px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.03em;
+    }
+    .ticker-track {
+      display: inline-block;
+      animation: ticker 35s linear infinite;
+    }
+    .ticker-track span {
+      margin: 0 40px;
+      opacity: 0.85;
+    }
+    .ticker-track span::before {
+      content: '◆ ';
+      color: var(--peach);
+    }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      background: var(--warm-white);
+      border-bottom: 1.5px solid var(--blush);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--charcoal);
+      letter-spacing: -1px;
+    }
+    .logo span {
+      color: var(--peach);
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--mid);
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--rose); }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--blush);
+      border-radius: 30px;
+      padding: 8px 18px;
+      gap: 8px;
+    }
+    .search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--charcoal);
+      width: 180px;
+    }
+    .search-box input::placeholder { color: var(--light); }
+    .btn-primary {
+      background: var(--charcoal);
+      color: var(--cream);
+      border: none;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--rose); transform: scale(1.03); }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 88vh;
+      padding: 0;
+      overflow: hidden;
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 60px 80px 60px;
+      background: var(--warm-white);
+    }
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--peach);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 30px;
+      height: 2px;
+      background: var(--peach);
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 5vw, 72px);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--charcoal);
+      margin-bottom: 24px;
+    }
+    .hero-title .accent { color: var(--rose); }
+    .hero-subtitle {
+      font-size: 17px;
+      color: var(--mid);
+      line-height: 1.7;
+      max-width: 440px;
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--charcoal);
+      border: 1.5px solid var(--charcoal);
+      padding: 11px 24px;
+      border-radius: 30px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { background: var(--charcoal); color: var(--cream); }
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 56px;
+      padding-top: 40px;
+      border-top: 1px solid var(--blush);
+    }
+    .stat-item { display: flex; flex-direction: column; gap: 4px; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--charcoal);
+    }
+    .stat-label { font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    .hero-right {
+      background: var(--blush);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, var(--peach) 0%, transparent 70%);
+      opacity: 0.25;
+      border-radius: 50%;
+    }
+    .floating-cards {
+      position: relative;
+      width: 360px;
+      height: 460px;
+    }
+    .float-card {
+      position: absolute;
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+      animation: float 4s ease-in-out infinite;
+    }
+    .float-card:nth-child(1) { top: 0; left: 0; width: 220px; animation-delay: 0s; }
+    .float-card:nth-child(2) { top: 120px; right: 0; width: 200px; animation-delay: 1.5s; }
+    .float-card:nth-child(3) { bottom: 20px; left: 20px; width: 240px; animation-delay: 0.8s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+    .float-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+    .tag-ai { background: var(--lavender); color: #6b3fa0; }
+    .tag-web { background: var(--mint); color: #2d7a5e; }
+    .tag-cloud { background: var(--sky); color: #2255a4; }
+    .float-title { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--charcoal); line-height: 1.3; margin-bottom: 8px; }
+    .float-meta { font-size: 11px; color: var(--light); font-family: 'Space Mono', monospace; }
+
+    /* ── CATEGORY FILTER ── */
+    .section-header {
+      padding: 60px 60px 0;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+    }
+    .see-all { color: var(--rose); font-weight: 600; font-size: 14px; cursor: pointer; text-decoration: none; }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      padding: 24px 60px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 9px 20px;
+      border-radius: 30px;
+      border: 1.5px solid var(--blush);
+      background: white;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--mid);
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--charcoal);
+      color: white;
+      border-color: var(--charcoal);
+    }
+
+    /* ── FEATURED CARD ── */
+    .featured-section {
+      padding: 0 60px 20px;
+    }
+    .featured-card {
+      background: var(--charcoal);
+      border-radius: 24px;
+      padding: 48px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .featured-card::before {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, var(--peach), transparent 70%);
+      opacity: 0.12;
+      right: -50px; top: -80px;
+      border-radius: 50%;
+    }
+    .featured-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .featured-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: white;
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+    .featured-desc {
+      color: rgba(255,255,255,0.55);
+      font-size: 15px;
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 28px;
+    }
+    .featured-btn {
+      background: var(--peach);
+      color: var(--charcoal);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .featured-btn:hover { transform: scale(1.04); }
+    .featured-badge {
+      background: var(--peach);
+      color: var(--charcoal);
+      border-radius: 50%;
+      width: 100px; height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      text-align: center;
+      line-height: 1.3;
+      flex-shrink: 0;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── NEWS GRID ── */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      padding: 30px 60px 60px;
+    }
+    .news-card {
+      background: white;
+      border-radius: 20px;
+      padding: 28px;
+      border: 1.5px solid var(--blush);
+      transition: all 0.25s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .news-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--peach), var(--rose));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .news-card:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      transform: translateY(-4px);
+      border-color: transparent;
+    }
+    .news-card:hover::after { transform: scaleX(1); }
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .card-tag {
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+    .card-time {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--light);
+    }
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--charcoal);
+      margin-bottom: 10px;
+    }
+    .card-excerpt {
+      font-size: 13.5px;
+      color: var(--mid);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-source {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--charcoal);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .source-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--peach);
+    }
+    .card-read {
+      font-size: 12px;
+      color: var(--rose);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* ── SUBMIT FORM ── */
+    .submit-section {
+      background: var(--blush);
+      margin: 0 60px 80px;
+      border-radius: 24px;
+      padding: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .submit-left h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .submit-left p {
+      color: var(--mid);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .submit-form { display: flex; flex-direction: column; gap: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-input, .form-select, .form-textarea {
+      padding: 13px 18px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(0,0,0,0.08);
+      background: white;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--charcoal);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--peach);
+    }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-submit {
+      background: var(--charcoal);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .form-submit:hover { background: var(--rose); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.5);
+      padding: 48px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: white;
+    }
+    .footer-logo span { color: var(--peach); }
+    .footer-tagline { font-size: 13px; margin-top: 6px; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--peach); }
+    .footer-right { font-size: 12px; font-family: 'Space Mono', monospace; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(44,40,37,0.55);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: white;
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 560px;
+      width: 90%;
+      position: relative;
+      animation: popIn 0.25s ease;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-close {
+      position: absolute; top: 20px; right: 20px;
+      background: var(--blush); border: none;
+      width: 32px; height: 32px; border-radius: 50%;
+      font-size: 16px; cursor: pointer; color: var(--charcoal);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .modal-tag { margin-bottom: 14px; }
+    .modal-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; margin-bottom: 14px; line-height: 1.3; }
+    .modal-body { color: var(--mid); line-height: 1.75; font-size: 15px; margin-bottom: 20px; }
+    .modal-meta { display: flex; gap: 20px; font-size: 12px; font-family: 'Space Mono', monospace; color: var(--light); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 30px; right: 30px;
+      background: var(--charcoal);
+      color: white;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 300;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(.34,1.56,.64,1);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast-icon { font-size: 18px; }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in:nth-child(1) { animation-delay: 0.1s; }
+    .fade-in:nth-child(2) { animation-delay: 0.2s; }
+    .fade-in:nth-child(3) { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+<!-- LIVE TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="tickerTrack">
+    <span>OpenAI announces GPT-5 with reasoning upgrades</span>
+    <span>Apple WWDC 2026 — Vision Pro 2 expected</span>
+    <span>Google DeepMind releases Gemini Ultra 2.0</span>
+    <span>Meta open-sources LLaMA 4 — 405B parameters</span>
+    <span>NVIDIA Blackwell GPU breaks benchmark records</span>
+    <span>Rust surpasses JavaScript in developer satisfaction survey</span>
+    <span>Linux kernel 7.0 released with ARM overhaul</span>
+    <span>SpaceX Starship completes first orbital mission</span>
+    <span>OpenAI announces GPT-5 with reasoning upgrades</span>
+    <span>Apple WWDC 2026 — Vision Pro 2 expected</span>
+    <span>Google DeepMind releases Gemini Ultra 2.0</span>
+    <span>Meta open-sources LLaMA 4 — 405B parameters</span>
+    <span>NVIDIA Blackwell GPU breaks benchmark records</span>
+    <span>Rust surpasses JavaScript in developer satisfaction survey</span>
+    <span>Linux kernel 7.0 released with ARM overhaul</span>
+    <span>SpaceX Starship completes first orbital mission</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">PULSE<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#" onclick="filterCategory('All')">Feed</a></li>
+    <li><a href="#" onclick="scrollToSubmit()">Submit</a></li>
+    <li><a href="#">Trending</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="search-box">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a89990" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" placeholder="Search stories..." id="searchInput" oninput="handleSearch(this.value)"/>
+    </div>
+    <button class="btn-primary" onclick="scrollToSubmit()">Submit Story</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow fade-in">Live Tech Intelligence</div>
+    <h1 class="hero-title fade-in">
+      Stay Wired.<br/>
+      Stay <span class="accent">Ahead.</span>
+    </h1>
+    <p class="hero-subtitle fade-in">
+      PULSE curates the most important stories in tech — AI, Web Dev, Cloud, Cybersecurity — so you never miss a beat. Built for students and professionals who think fast.
+    </p>
+    <div class="hero-actions fade-in">
+      <button class="btn-primary" onclick="document.querySelector('.news-grid').scrollIntoView({behavior:'smooth'})">Explore Feed ↓</button>
+      <button class="btn-outline" onclick="scrollToSubmit()">Submit a Story</button>
+    </div>
+    <div class="hero-stats fade-in">
+      <div class="stat-item">
+        <span class="stat-num" id="storyCount">6</span>
+        <span class="stat-label">Stories Today</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">4</span>
+        <span class="stat-label">Categories</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">Live</span>
+        <span class="stat-label">Status</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="floating-cards">
+      <div class="float-card">
+        <div class="float-tag tag-ai">AI</div>
+        <div class="float-title">GPT-5 Reasoning Mode is Here</div>
+        <div class="float-meta">2 mins ago · OpenAI Blog</div>
+      </div>
+      <div class="float-card">
+        <div class="float-tag tag-web">Web Dev</div>
+        <div class="float-title">React 20 Drops Native Signals</div>
+        <div class="float-meta">14 mins ago · Vercel</div>
+      </div>
+      <div class="float-card">
+        <div class="float-tag tag-cloud">Cloud</div>
+        <div class="float-title">AWS launches free tier GPU instances</div>
+        <div class="float-meta">1 hr ago · AWS News</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<div class="featured-section" style="padding: 48px 60px 20px;">
+  <div class="featured-card">
+    <div>
+      <div class="featured-label">🔥 Editor's Pick</div>
+      <div class="featured-title">The DevOps Revolution:<br/>Why Every Developer Needs CI/CD in 2026</div>
+      <div class="featured-desc">From Jenkins pipelines to GitHub Actions — the tools that ship code faster, break less, and keep teams sane. A deep-dive for students entering the industry.</div>
+      <button class="featured-btn" onclick="openModal('devops')">Read Full Story →</button>
+    </div>
+    <div class="featured-badge">EDITOR'S<br/>PICK<br/>✦</div>
+  </div>
+</div>
+
+<!-- FILTERS -->
+<div class="section-header" style="padding-top: 48px;">
+  <h2 class="section-title">Latest Stories</h2>
+  <a class="see-all" href="#">See all →</a>
+</div>
+<div class="filters">
+  <button class="filter-btn active" onclick="filterCategory('All', this)">All</button>
+  <button class="filter-btn" onclick="filterCategory('AI', this)">🤖 AI & ML</button>
+  <button class="filter-btn" onclick="filterCategory('Web Dev', this)">💻 Web Dev</button>
+  <button class="filter-btn" onclick="filterCategory('Cloud', this)">☁️ Cloud</button>
+  <button class="filter-btn" onclick="filterCategory('Cyber', this)">🔐 Cybersecurity</button>
+  <button class="filter-btn" onclick="filterCategory('DevOps', this)">⚙️ DevOps</button>
+</div>
+
+<!-- NEWS GRID -->
+<div class="news-grid" id="newsGrid"></div>
+
+<!-- SUBMIT SECTION -->
+<div class="submit-section" id="submitSection">
+  <div class="submit-left">
+    <h2>Got a Story Worth Sharing?</h2>
+    <p>Help the community stay sharp. Submit a tech story, discovery, or article you think every developer and student should read. Our editors review everything.</p>
+  </div>
+  <div class="submit-form">
+    <div class="form-row">
+      <input class="form-input" type="text" placeholder="Your Name" id="authorName"/>
+      <select class="form-select" id="storyCategory">
+        <option value="">Category</option>
+        <option>AI & ML</option>
+        <option>Web Dev</option>
+        <option>Cloud</option>
+        <option>Cybersecurity</option>
+        <option>DevOps</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <input class="form-input" type="text" placeholder="Story Headline" id="storyTitle"/>
+    <input class="form-input" type="url" placeholder="Source URL (optional)" id="storyUrl"/>
+    <textarea class="form-textarea" placeholder="Brief summary — what's the story about?" id="storyExcerpt"></textarea>
+    <button class="form-submit" onclick="submitStory()">Publish to Feed →</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">PULSE<span>.</span></div>
+    <div class="footer-tagline">Real-time tech intelligence for curious minds.</div>
+  </div>
+  <div class="footer-links">
+    <a href="#">Feed</a>
+    <a href="#">Submit</a>
+    <a href="#">Trending</a>
+    <a href="#">GitHub</a>
+  </div>
+  <div class="footer-right">Built with ♥ for DevOps Lab · 2026</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modalBox">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-tag" id="modalTag"></div>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-meta" id="modalMeta"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <span id="toastMsg">Story submitted!</span>
+</div>
+
+<script>
+  // ── DATA ──
+  const tagStyles = {
+    'AI': { bg: '#dcd3f5', color: '#6b3fa0' },
+    'Web Dev': { bg: '#b8dfd0', color: '#2d7a5e' },
+    'Cloud': { bg: '#c5dff8', color: '#2255a4' },
+    'Cyber': { bg: '#fdd5d5', color: '#a02020' },
+    'DevOps': { bg: '#fde9c5', color: '#8a5a00' },
+    'Other': { bg: '#f0f0f0', color: '#555' },
+  };
+
+  let stories = [
+    {
+      id: 1,
+      category: 'AI',
+      title: 'Anthropic's Claude 4 Beats GPT-5 on Reasoning Benchmarks',
+      excerpt: 'New evals show Claude 4 Opus surpassing GPT-5 in multi-step mathematical reasoning and coding tasks — a milestone for open evaluations.',
+      source: 'The Verge',
+      time: '3 min ago',
+      readTime: '4 min read',
+      body: 'Anthropic's latest model, Claude 4 Opus, has reportedly outperformed OpenAI's GPT-5 on a range of challenging benchmarks including MATH, HumanEval, and MMLU. Independent researchers confirmed the results after running blind evaluations. This marks a significant milestone in the rapidly evolving large language model space, with implications for enterprise adoption and AI safety research.'
+    },
+    {
+      id: 2,
+      category: 'Web Dev',
+      title: 'Next.js 16 Brings Native View Transitions API Support',
+      excerpt: 'Vercel ships Next.js 16 with built-in View Transitions, server actions v2, and dramatically improved cold start times across edge deployments.',
+      source: 'Vercel Blog',
+      time: '18 min ago',
+      readTime: '3 min read',
+      body: 'Next.js 16 is here with a host of developer experience improvements. The headline feature is native support for the View Transitions API, enabling smooth page animations without any third-party libraries. Server Actions have also been overhauled in v2, bringing better error handling, optimistic UI patterns, and streaming support out of the box. Cold start times on Vercel edge functions improved by up to 60%.'
+    },
+    {
+      id: 3,
+      category: 'Cloud',
+      title: 'AWS Launches Graviton4 — 40% Faster at Half the Cost',
+      excerpt: 'Amazon's newest ARM-based chip for EC2 promises dramatic performance gains for containerised workloads, with pricing that undercuts x86 alternatives.',
+      source: 'AWS News',
+      time: '1 hr ago',
+      readTime: '5 min read',
+      body: 'AWS has unveiled Graviton4, its most powerful ARM-based processor to date. Benchmarks show up to 40% better performance-per-dollar compared to the previous generation, with particular gains in containerised microservices and database workloads. EC2 instances powered by Graviton4 are available immediately in us-east-1 and eu-west-1, with global rollout by Q3 2026.'
+    },
+    {
+      id: 4,
+      category: 'Cyber',
+      title: 'Zero-Day Exploit Found in Widely Used npm Package',
+      excerpt: 'Security researchers disclosed a critical RCE vulnerability in a package with 200M weekly downloads. Patch available — update now.',
+      source: 'Snyk Blog',
+      time: '2 hrs ago',
+      readTime: '6 min read',
+      body: 'A zero-day remote code execution vulnerability was discovered in a popular npm package used by over 200 million projects per week. The flaw allows attackers to execute arbitrary code via a specially crafted input string. A patch was released within hours of disclosure. All users are strongly advised to update immediately. This incident reignites debate about supply chain security in open-source ecosystems.'
+    },
+    {
+      id: 5,
+      category: 'DevOps',
+      title: 'GitHub Actions Now Supports Native Jenkins Pipeline Import',
+      excerpt: 'GitHub's latest Actions update allows teams to migrate Jenkins pipelines with a single CLI command — reducing migration friction significantly.',
+      source: 'GitHub Blog',
+      time: '4 hrs ago',
+      readTime: '4 min read',
+      body: 'GitHub has released a new CLI tool that converts Jenkinsfiles into GitHub Actions workflows automatically. The tool handles stage mapping, secret migration, and parallel job conversion. Teams that have tested the migration tool report over 80% of pipelines converting with no manual edits required. This is a major step in lowering the barrier for organisations still running legacy Jenkins infrastructure.'
+    },
+    {
+      id: 6,
+      category: 'AI',
+      title: 'Google NotebookLM Gets Real-Time Collaboration & Podcast Mode',
+      excerpt: 'NotebookLM can now generate audio podcasts from your documents and supports real-time multiplayer editing — a game-changer for students.',
+      source: 'Google Blog',
+      time: '5 hrs ago',
+      readTime: '3 min read',
+      body: 'Google has shipped two major updates to NotebookLM. First, Audio Overviews can now be generated on-demand with customisable hosts and styles. Second, real-time collaboration lets multiple users annotate and query the same notebook simultaneously. For students working on research projects or developers building internal knowledge bases, this update dramatically expands what's possible with AI-assisted document intelligence.'
+    }
+  ];
+
+  let activeCategory = 'All';
+
+  // ── RENDER ──
+  function renderCards(data) {
+    const grid = document.getElementById('newsGrid');
+    grid.innerHTML = '';
+    if (data.length === 0) {
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--light);font-size:18px;">No stories found. Try a different filter.</div>';
+      return;
+    }
+    data.forEach((s, i) => {
+      const ts = tagStyles[s.category] || tagStyles['Other'];
+      const card = document.createElement('div');
+      card.className = 'news-card fade-in';
+      card.style.animationDelay = `${i * 0.08}s`;
+      card.innerHTML = `
+        <div class="card-top">
+          <span class="card-tag" style="background:${ts.bg};color:${ts.color}">${s.category}</span>
+          <span class="card-time">${s.time}</span>
+        </div>
+        <div class="card-title">${s.title}</div>
+        <div class="card-excerpt">${s.excerpt}</div>
+        <div class="card-footer">
+          <div class="card-source"><div class="source-dot"></div>${s.source}</div>
+          <div class="card-read" onclick="openModal(${s.id})">Read → ${s.readTime}</div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+    document.getElementById('storyCount').textContent = stories.length;
+  }
+
+  function filterCategory(cat, btn) {
+    activeCategory = cat;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    applyFilters();
+  }
+
+  function handleSearch(val) {
+    applyFilters(val);
+  }
+
+  function applyFilters(searchVal) {
+    const q = (searchVal !== undefined ? searchVal : document.getElementById('searchInput').value).toLowerCase();
+    let filtered = stories;
+    if (activeCategory !== 'All') {
+      filtered = filtered.filter(s => s.category === activeCategory || (activeCategory === 'AI' && s.category === 'AI'));
+    }
+    if (q) {
+      filtered = filtered.filter(s =>
+        s.title.toLowerCase().includes(q) ||
+        s.excerpt.toLowerCase().includes(q) ||
+        s.source.toLowerCase().includes(q)
+      );
+    }
+    renderCards(filtered);
+  }
+
+  // ── MODAL ──
+  function openModal(id) {
+    if (id === 'devops') {
+      document.getElementById('modalTag').innerHTML = '<span class="card-tag" style="background:#fde9c5;color:#8a5a00">DevOps</span>';
+      document.getElementById('modalTitle').textContent = 'The DevOps Revolution: Why Every Developer Needs CI/CD in 2026';
+      document.getElementById('modalBody').textContent = 'Continuous Integration and Continuous Delivery have moved from buzzword to baseline expectation. In 2026, teams that ship without automated pipelines are the exception, not the rule. Whether you're using Jenkins, GitHub Actions, or GitLab CI — the principles are the same: commit often, test automatically, deploy confidently. This story explores how students can get started and why CI/CD belongs in every engineering portfolio.';
+      document.getElementById('modalMeta').innerHTML = '<span>Editor\'s Pick</span><span>8 min read</span><span>PULSE Editorial</span>';
+      document.getElementById('modalOverlay').classList.add('open');
+      return;
+    }
+    const s = stories.find(x => x.id === id);
+    if (!s) return;
+    const ts = tagStyles[s.category] || tagStyles['Other'];
+    document.getElementById('modalTag').innerHTML = `<span class="card-tag" style="background:${ts.bg};color:${ts.color}">${s.category}</span>`;
+    document.getElementById('modalTitle').textContent = s.title;
+    document.getElementById('modalBody').textContent = s.body;
+    document.getElementById('modalMeta').innerHTML = `<span>${s.source}</span><span>${s.readTime}</span><span>${s.time}</span>`;
+    document.getElementById('modalOverlay').classList.add('open');
+  }
+
+  function closeModal(e) {
+    if (!e || e.target === document.getElementById('modalOverlay') || !e.target) {
+      document.getElementById('modalOverlay').classList.remove('open');
+    }
+  }
+
+  // ── SUBMIT ──
+  function submitStory() {
+    const title = document.getElementById('storyTitle').value.trim();
+    const excerpt = document.getElementById('storyExcerpt').value.trim();
+    const author = document.getElementById('authorName').value.trim();
+    const cat = document.getElementById('storyCategory').value;
+    if (!title || !excerpt) {
+      showToast('⚠️ Please fill in headline and summary!');
+      return;
+    }
+    const newStory = {
+      id: Date.now(),
+      category: cat || 'Other',
+      title,
+      excerpt,
+      source: author || 'Community',
+      time: 'Just now',
+      readTime: '2 min read',
+      body: excerpt
+    };
+    stories.unshift(newStory);
+    ['storyTitle','storyExcerpt','authorName','storyUrl'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('storyCategory').value = '';
+    activeCategory = 'All';
+    document.querySelectorAll('.filter-btn').forEach((b,i) => b.classList.toggle('active', i===0));
+    renderCards(stories);
+    showToast('✅ Story published to the feed!');
+    document.querySelector('.news-grid').scrollIntoView({behavior:'smooth'});
+  }
+
+  function scrollToSubmit() {
+    document.getElementById('submitSection').scrollIntoView({behavior:'smooth'});
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  // ── INIT ──
+  renderCards(stories);
+</script>
+</body>
+</html>
